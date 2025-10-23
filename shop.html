@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shop Cafe —Lê Anh</title>
+  <style>
+    :root{
+        --accent:#e24a4a; 
+        --accent-2:#c25050; 
+        --card:#fff; --muted:#666; 
+        --glass: rgba(255,255,255,0.95); 
+    }
+
+    *{box-sizing:border-box}
+
+    body{ 
+        margin:0; 
+        font-family: "Segoe UI", Roboto, Arial, sans-serif; 
+        background: linear-gradient(90deg,#4A90E2 0%, #ff4d4d 50%, #ffffff 100%); 
+        display:flex; 
+        justify-content:center; 
+        padding:32px 16px; 
+        color:#222; 
+    }
+
+    .wrap{ 
+        width:100%; 
+        max-width:1100px; 
+    }
+
+    header.sitehead{ 
+        display:flex; 
+        gap:16px; 
+        align-items:center; 
+        background: linear-gradient(90deg,var(--accent),var(--accent-2)); 
+        color:white; 
+        padding:18px; 
+        border-radius:12px; 
+        margin-bottom:18px; 
+    }
+    .sitehead .avatar{ 
+        width:84px;
+        height:84px;
+        border-radius:50%;
+        object-fit:cover;
+        border:3px solid rgba(255,255,255,0.2); 
+        box-shadow:0 6px 16px rgba(0,0,0,0.18) 
+    }
+
+    .sitehead h1{
+        margin:0;
+        font-size:1.25rem
+    }
+
+    .navlinks{ 
+        margin-left:auto; 
+        display:flex; 
+        gap:10px 
+    }
+    .navlinks a{
+      color:white;
+      background:rgba(0,0,0,0.08);
+      padding:8px 12px;border-radius:8px;
+      text-decoration:none;font-weight:600 
+    }
+
+    main.grid{ 
+      display:grid; 
+      grid-template-columns: 1fr 360px; 
+      gap:18px; align-items:start; 
+    }
+
+    .products{ 
+      display:grid; 
+      grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); 
+      gap:14px; }
+
+    .card{ 
+      background:var(--card); 
+      padding:14px; 
+      border-radius:12px; 
+      box-shadow:0 8px 20px rgba(0,0,0,0.08); 
+      display:flex; flex-direction:column; 
+      gap:10px; 
+    }
+
+    .card img{
+      width:100%;
+      height:140px;
+      object-fit:cover;
+      border-radius:8px
+    }
+
+    .price{
+      font-weight:700;
+      color:var(--accent)
+    }
+
+    .btn{ 
+      background:linear-gradient(90deg,var(--accent),var(--accent-2)); 
+      color:white;
+      padding:8px 10px;
+      border-radius:8px;
+      border:0;
+      cursor:pointer;
+      font-weight:600; 
+    }
+
+    .sidebar{ 
+      position:relative; 
+      background:var(--glass); 
+      padding:14px;
+      border-radius:12px; 
+      box-shadow:0 10px 26px rgba(0,0,0,0.12); 
+    }
+
+    .cart-list{ 
+      max-height:260px; 
+      overflow:auto; 
+      display:flex; 
+      flex-direction:column; 
+      gap:8px; 
+      padding-right:6px 
+    }
+    .cart-item{ 
+      display:flex; 
+      gap:10px; 
+      align-items:center; 
+      border-radius:8px; 
+      padding:8px; 
+      background:linear-gradient(180deg,#fff,#fafafa) 
+    }
+
+    .cart-item img{ 
+      width:56px; 
+      height:56px; 
+      object-fit:cover; 
+      border-radius:8px 
+    }
+
+    .order-form input,.order-form textarea, .order-form select{ 
+      padding:10px; 
+      border-radius:8px; 
+      border:1px solid #ddd; 
+      font-size:0.95rem;
+      width:100%; 
+    }
+
+    .order-form textarea{ 
+      resize:vertical; 
+      min-height:80px 
+    }
+
+    .submit{ 
+      display:block; 
+      margin-top:8px; 
+      background:linear-gradient(90deg,var(--accent),#ff6b6b); 
+      color:white; 
+      border:0; 
+      padding:10px; 
+      border-radius:8px; 
+      font-weight:700; 
+      cursor:pointer; 
+    }
+
+    footer.note{ 
+      margin-top:16px; 
+      color:var(--muted); 
+      font-size:0.9rem; 
+      text-align:center 
+    }
+    
+    /*CSS cho menu categories */
+    .menu-categories {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .cat-btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      background: var(--glass);
+      color: var(--accent);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .cat-btn:hover {
+      background: var(--accent);
+      color: white;
+    }
+    .cat-btn.active {
+      background: var(--accent);
+      color: white;
+    }
+    
+    @media (max-width:980px){ main.grid{ grid-template-columns:1fr; } .sidebar{ order:2 } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="sitehead">
+      <img src="img/a.jpg" alt="logo quán" class="avatar">
+      <div>
+        <h1>Lê Anh — Cafe & More</h1>
+        <p>Quán cafe Online, hương vị đậm đà • Liên hệ nhanh để đặt trước</p>
+      </div>
+      <nav class="navlinks">
+        <a href="index.html">Trang chủ</a>
+        <a href="shop.html">Shop</a>
+      </nav>
+    </header>
+
+    <main class="grid" role="main">
+      <section aria-labelledby="prod-title">
+        <h2 id="prod-title">Menu Cà Phê</h2>
+        <div class="menu-categories">
+          <button class="cat-btn active" onclick="filterProducts('all')">Tất cả</button>
+          <button class="cat-btn" onclick="filterProducts('vn')">Cà phê Việt Nam</button>
+          <button class="cat-btn" onclick="filterProducts('it')">Cà phê Ý</button>
+          <button class="cat-btn" onclick="filterProducts('special')">Đặc biệt</button>
+        </div>
+        <p style="color:var(--muted);margin-top:6px">Chọn sản phẩm và điền form bên phải để hoàn tất đơn hàng.</p>
+        <div class="products" id="products"></div>
+      </section>
+
+      <aside class="sidebar" aria-labelledby="cart-title">
+        <h3 id="cart-title">Giỏ hàng & Đặt hàng</h3>
+        <div class="cart-list" id="cart"></div>
+        <div class="summary" id="summary">
+          <div style="display:flex;justify-content:space-between;padding:6px 0"><div>Tạm tính</div><div id="subtotal">0 ₫</div></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0"><div>Phí giao (ước tính)</div><div id="shipping">20.000 ₫</div></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;font-weight:800"><div>Tổng cộng</div><div id="total">0 ₫</div></div>
+        </div>
+
+        <form id="orderForm" class="order-form" onsubmit="return submitOrder(event)">
+          <input type="text" id="name" placeholder="Họ & tên" required>
+          <input type="tel" id="phone" placeholder="Số điện thoại" pattern="[0-9+()\s-]{7,}" required>
+          <input type="text" id="address" placeholder="Địa chỉ nhận hàng" required>
+          <select id="pay" required>
+            <option value="">Chọn phương thức thanh toán</option>
+            <option value="cod">Thanh toán khi nhận hàng (COD)</option>
+            <option value="momo">MoMo / QR</option>
+            <option value="card">Thẻ nội địa / Visa</option>
+          </select>
+          <textarea id="note" placeholder="Ghi chú (ví dụ: Nhiều đá không cafe, ít đường)"></textarea>
+          <button class="submit" type="submit">Gửi đơn hàng</button>
+        </form>
+
+        <div class="note">Sản phẩm chỉ mang tính minh họa — trang demo</div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    const PRODUCTS = [
+      // Cà phê Việt
+      {id:1, name:"Cà phê Sữa Đá", price:30000, img:"img/cafe1.jpg", desc:"Hương đậm, pha phin truyền thống"},
+      {id:2, name:"Cà phê Đen Đá", price:25000, img:"img/cafe2.jpg", desc:"Đậm đà, không đường"},
+      {id:3, name:"Bạc Xỉu", price:35000, img:"img/cafe3.jpg", desc:"Ngọt ngào với sữa đặc"},
+      
+      // Cà phê Ý
+      {id:4, name:"Espresso", price:40000, img:"img/cafe4.jpg", desc:"Cà phê Ý nguyên chất"},
+      {id:5, name:"Cappuccino", price:45000, img:"img/cafe5.jpg", desc:"Espresso với bọt sữa mịn"},
+      {id:6, name:"Latte", price:45000, img:"img/cafe6.jpg", desc:"Cà phê sữa kiểu Ý"},
+      
+      // Cà phê đặc biệt
+      {id:7, name:"Cold Brew", price:50000, img:"img/cold-brew.jpg", desc:"Ủ lạnh 24h, vị dịu nhẹ"},
+      {id:8, name:"Mocha", price:48000, img:"img/mocha.jpg", desc:"Cà phê pha socola"},
+      {id:9, name:"Caramel Macchiato", price:55000, img:"img/caramel.jpg", desc:"Thơm béo caramel"}
+    ];
+
+    const fmt = v => v.toLocaleString('vi-VN') + " ₫";
+    const productsEl = document.getElementById('products');
+    const cartEl = document.getElementById('cart');
+    const subtotalEl = document.getElementById('subtotal');
+    const totalEl = document.getElementById('total');
+    const shipping = 20000;
+    let cart = [];
+
+    function filterProducts(category) {
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if(btn.onclick.toString().includes(category)) {
+          btn.classList.add('active');
+        }
+      });
+
+      const filtered = category === 'all' ? PRODUCTS :
+        category === 'vn' ? PRODUCTS.slice(0,3) :
+        category === 'it' ? PRODUCTS.slice(3,6) :
+        PRODUCTS.slice(6,9);
+
+      productsEl.innerHTML = '';
+      filtered.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'card';
+        el.innerHTML = `
+          <img src="${p.img}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <div style="color:var(--muted);font-size:0.95rem">${p.desc}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="price">${fmt(p.price)}</div>
+            <div><button class="btn" onclick="addToCart(${p.id})">Thêm vào giỏ</button></div>
+          </div>
+        `;
+        productsEl.appendChild(el);
+      });
+    }
+
+    function addToCart(id){
+      const entry = cart.find(c=>c.id===id);
+      if(entry) entry.qty++;
+      else cart.push({id, qty:1});
+      renderCart();
+    }
+
+    function changeQty(id, delta){
+      const entry = cart.find(c=>c.id===id);
+      if(!entry) return;
+      entry.qty += delta;
+      if(entry.qty<=0) cart = cart.filter(c=>c.id!==id);
+      renderCart();
+    }
+
+    function renderCart(){
+      cartEl.innerHTML = cart.length ? '' : '<div style="color:var(--muted)">Giỏ hàng trống</div>';
+      let subtotal = 0;
+      cart.forEach(c=>{
+        const p = PRODUCTS.find(x=>x.id===c.id);
+        subtotal += p.price * c.qty;
+        const item = document.createElement('div');
+        item.className = 'cart-item';
+        item.innerHTML = `
+          <img src="${p.img}" alt="${p.name}">
+          <div style="flex:1">
+            <div style="font-weight:700">${p.name}</div>
+            <div style="color:var(--muted);font-size:0.95rem">${fmt(p.price)} x ${c.qty}</div>
+          </div>
+          <div style="text-align:right">
+            <div style="display:inline-flex;gap:6px;align-items:center">
+              <button onclick="changeQty(${p.id},-1)">-</button>
+              <div style="padding:6px 8px;border-radius:6px;background:#f5f5f5">${c.qty}</div>
+              <button onclick="changeQty(${p.id},1)">+</button>
+            </div>
+            <div style="margin-top:8px;font-weight:700">${fmt(p.price*c.qty)}</div>
+          </div>
+        `;
+        cartEl.appendChild(item);
+      });
+      subtotalEl.textContent = fmt(subtotal);
+      totalEl.textContent = fmt(subtotal + (cart.length?shipping:0));
+    }
+
+    function submitOrder(e){
+      e.preventDefault();
+      if(cart.length===0){ alert('Giỏ hàng trống. Vui lòng thêm sản phẩm.'); return false; }
+      const order = {
+        customer: { 
+          name: document.getElementById('name').value.trim(),
+          phone: document.getElementById('phone').value.trim(),
+          address: document.getElementById('address').value.trim(),
+          note: document.getElementById('note').value.trim(),
+          payMethod: document.getElementById('pay').value
+        },
+        items: cart.map(c=>{ 
+          const p = PRODUCTS.find(x=>x.id===c.id);
+          return {id:p.id, name:p.name, qty:c.qty, price:p.price};
+        }),
+        subtotal: cart.reduce((s,c)=> s + PRODUCTS.find(p=>p.id===c.id).price*c.qty,0),
+        shipping,
+        total: 0
+      };
+      order.total = order.subtotal + (order.items.length?shipping:0);
+      const summary = [
+        `Đơn hàng từ: ${order.customer.name}`,
+        `SĐT: ${order.customer.phone}`,
+        `Địa chỉ: ${order.customer.address}`,
+        `Phương thức: ${order.customer.payMethod}`,
+        `Tổng: ${fmt(order.total)}`,
+        '',
+        'Chi tiết:',
+        ...order.items.map(i=>`${i.name} x${i.qty} — ${fmt(i.price*i.qty)}`)
+      ].join('\n');
+      
+      console.log('ORDER', order);
+      if(confirm(summary + '\n\nXác nhận gửi đơn?')){
+        alert('Đã gửi đơn hàng. Liên hệ quán để xác nhận.');
+        cart = [];
+        renderCart();
+        document.getElementById('orderForm').reset();
+      }
+      return false;
+    }
+
+    // Khởi tạo hiển thị tất cả sản phẩm
+    filterProducts('all');
+    renderCart();
+  </script>
+</body>
+</html>
